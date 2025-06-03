@@ -127,15 +127,6 @@ Retorna a última string JSON gerada pela execução.
 
 Este projeto é de código aberto. Você pode adaptá-lo, usá-lo em seus projetos pessoais ou comerciais. Para registro formal de direitos autorais, veja abaixo.
 
-## 📄 Registro de Direitos Autorais
-
-Embora o código esteja publicado no GitHub, você pode **formalizar seus direitos autorais** da seguinte forma:
-
-1. **Licença** no `README.md` e `LICENSE` (ex: MIT, GPL, Apache).
-2. **Registro oficial (opcional)**:
-   - No Brasil: [Biblioteca Nacional](https://www.bn.gov.br/servicos/direitos-autorais).
-   - Internacional: [Creative Commons](https://creativecommons.org/) ou registro de propriedade intelectual local.
-
 ## ✉️ Contato
 
 Criado por **@claudionsc**  
