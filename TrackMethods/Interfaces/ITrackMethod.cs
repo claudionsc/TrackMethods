@@ -1,20 +1,14 @@
-﻿    using System;
-    using System.Collections.Generic;
-    using System.Diagnostics;
-    using System.Linq;
-    using System.Text;
-    using System.Threading.Channels;
-    using System.Threading.Tasks;
-    using System.Web.Mvc;
+﻿using System;
+using System.Diagnostics;
+using System.Web.Mvc;
 
-    namespace TrackMethods.Interfaces
+namespace TrackMethods.Interfaces
+{
+    public interface ITrackMethod
     {
-        public interface ITrackMethod
-        {
-            T TrackExecution<T>(Func<T> func, string methodCalled, string description, string user, string? filePath, string filelame, string saveAs, Int32 milisseconds);
-            void SaveExcel(Stopwatch sw, string methoGalled, string description, string user, string saveFilePath, string filelame, Int32 milisseconds);
-            JsonResult GenerateJson(Stopwatch sw, string methodCalled, string description, string user, string fileName, Int32 milisseconds);
-            string LastGeneratedJson { get; }
-
-        }
+        T TrackExecution<T>(Func<T> func, string description, string methodCalled, string user, string? filePath, string fileName, string saveAs, int milisseconds);
+        void SaveExcel(Stopwatch sw, string methodCalled, string description, string user, string saveFilePath, string fileName, int milisseconds);
+        JsonResult GenerateJson(Stopwatch sw, string methodCalled, string description, string user, string fileName, int milisseconds);
+        string LastGeneratedJson { get; }
     }
+}

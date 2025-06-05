@@ -1,4 +1,5 @@
-﻿using TrackMethods.Interfaces;
+﻿using TrackMethods.Builders;
+using TrackMethods.Interfaces;
 
 public class Execution
 {
@@ -8,33 +9,9 @@ public class Execution
     {
         _tracker = tracker;
     }
-
-    // Versão completa com todos os parâmetros
-    public T ExecutionTracker<T>(
-        Func<T> func,
-        string methodCalled,
-        string description,
-        string user,
-        string? filePath,
-        string fileName,
-        string saveAs,
-        int milisseconds)
+    public Tracker<T> Create<T>()
     {
-        return _tracker.TrackExecution(func, description, methodCalled, user, filePath, fileName, saveAs, milisseconds);
+        return new Tracker<T>(_tracker);
     }
 
-    // ✅ Sobrecarga simplificada (sem filePath)
-    public T ExecutionTracker<T>(
-        Func<T> func,
-        string methodCalled,
-        string description,
-        string user,
-        string fileName,
-        string saveAs,
-        int milisseconds)
-    {
-        return ExecutionTracker(func, methodCalled, description, user, null, fileName, saveAs, milisseconds);
-    }
-
-    public string LastGeneratedJson => _tracker.LastGeneratedJson;
 }

@@ -28,6 +28,7 @@ namespace TrackMethods.Services
 
             try
             {
+                Console.WriteLine("Aguarde a geração do arquivo");
                 var result = func();
 
 
@@ -38,7 +39,7 @@ namespace TrackMethods.Services
                     throw new Exception("É preciso selecionar um método com retorno");
                 }
 
-                if (saveType == "xlsx" || filePath == "excel")
+                if (saveType == "xlsx" || saveType == "excel")
                 {
                     if (filePath == null)
                     {
@@ -97,9 +98,10 @@ namespace TrackMethods.Services
                 worksheet.Cell(1, 4).Value = "Descrição";
                 worksheet.Cell(1, 5).Value = "Salvo por";
                 worksheet.Cell(1, 6).Value = "Nome do arquivo";
+                worksheet.Cell(1, 7).Value = "Tempo esperado(ms)";
 
-                worksheet.Range("A1:F1").Style.Font.Bold = true;
-                worksheet.Range("A1:F1").Style.Fill.BackgroundColor = XLColor.LightGray;
+                worksheet.Range("A1:G1").Style.Font.Bold = true;
+                worksheet.Range("A1:G1").Style.Fill.BackgroundColor = XLColor.LightGray;
             }
 
             int lastRow = worksheet.LastRowUsed()?.RowNumber() ?? 1;
@@ -111,6 +113,7 @@ namespace TrackMethods.Services
             worksheet.Cell(nextRow, 4).Value = description;
             worksheet.Cell(nextRow, 5).Value = user;
             worksheet.Cell(nextRow, 6).Value = fileName;
+            worksheet.Cell(nextRow, 7).Value = milisseconds;
 
             // Estilo condicional: tempo de resposta > milisseconds
             var range = worksheet.Range($"B2:B{nextRow}");
