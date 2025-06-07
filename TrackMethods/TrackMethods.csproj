@@ -6,27 +6,14 @@
     <Nullable>enable</Nullable>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
     <Title>TrackMethod</Title>
-    <Description>TrackMethods é uma biblioteca para rastreamento e monitoramento de métodos em aplicações .NET. Com ela, é possível registrar logs detalhados de execução, incluindo tempo de resposta, descrição da função, nome do usuário e nome do método executado.
-
-A biblioteca permite salvar os registros em formato Excel (.xlsx), com destaque visual para métodos que ultrapassam um tempo limite definido, ou retornar os dados diretamente em formato JSON — ideal para integrações com APIs, console apps ou sistemas de monitoramento.
-
-Funcionalidades:
-- Medição precisa de tempo de execução com `Stopwatch`.
-- Exportação de logs para Excel com formatação condicional.
-- Geração de logs JSON para fácil visualização e integração.
-- Suporte a retorno genérico via delegados (`Func&lt;T&gt;`).
-- Interface extensível para uso em projetos MVC, WebAPI ou Console.
-
-Ideal para desenvolvedores que desejam rastrear performance e comportamento de métodos críticos em produção ou durante testes.
-
-Compatível com .NET Framework e .NET Core.
+    <Description>TrackMethods é uma biblioteca C# desenvolvida para monitorar e registrar a execução de métodos, fornecendo métricas detalhadas como tempo de execução, usuário, descrição e nome do método. Permite salvar esses dados em arquivos Excel ou retornar em formato JSON, facilitando análises, auditorias e otimização de performance. Com uma interface fluente e flexível, o TrackMethods é ideal para desenvolvedores que precisam de uma solução prática para rastrear, auditar e documentar a execução de funções em seus sistemas.
 </Description>
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <RepositoryUrl>https://github.com/claudionsc/TrackMethods.git</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
     <PackageReleaseNotes>Versão inicial</PackageReleaseNotes>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
-    <Version>1.1.0</Version>
+    <Version>1.2.0</Version>
   </PropertyGroup>
 
   <ItemGroup>
