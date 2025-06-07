@@ -81,7 +81,7 @@ Console.WriteLine(jsonString);
 
 ```csharp
 dynamic jsonObj = JsonConvert.DeserializeObject(jsonString);
-Console.WriteLine(jsonObj.elapsedTime);
+Console.WriteLine(jsonObj.Data);
 ```
 
 ---

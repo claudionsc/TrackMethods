@@ -9,10 +9,9 @@ namespace TrackMethods.Services
 {
     internal static class FormatElapsed
     {
-        public static string ElapsedFormatter(TimeSpan ts)
+        public static string ElapsedFormatter(TimeSpan elapsed)
         {
-            return string.Format("{0:00}:{1:00}:{2:00}.{3:00}",
-                ts.Hours, ts.Minutes, ts.Seconds, ts.Milliseconds / 10);
+            return elapsed.ToString(@"hh\:mm\:ss\.fff");
         }
     }
 }

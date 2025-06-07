@@ -41,19 +41,24 @@ namespace TrackMethods.Services
             int lastRow = worksheet.LastRowUsed()?.RowNumber() ?? 1;
             int nextRow = lastRow + 1;
 
+            var elapsedFormatted = FormatElapsed.ElapsedFormatter(sw.Elapsed);
+            var expectedTimeSpan = TimeSpan.FromMilliseconds(milisseconds);
+            var expectedFormatted = FormatElapsed.ElapsedFormatter(expectedTimeSpan);
+
+
             worksheet.Cell(nextRow, 1).Value = DateTime.Now.ToString("dd-MM-yyyy HH:mm:ss.fff");
-            worksheet.Cell(nextRow, 2).Value = FormatElapsed.ElapsedFormatter(sw.Elapsed);
+            worksheet.Cell(nextRow, 2).Value = elapsedFormatted;
             worksheet.Cell(nextRow, 3).Value = methodCalled;
             worksheet.Cell(nextRow, 4).Value = description;
             worksheet.Cell(nextRow, 5).Value = user;
             worksheet.Cell(nextRow, 6).Value = fileName;
-            worksheet.Cell(nextRow, 7).Value = milisseconds;
+            worksheet.Cell(nextRow, 7).Value = expectedFormatted;
 
             // Estilo condicional: tempo de resposta > milisseconds
             var range = worksheet.Range($"B2:B{nextRow}");
             foreach (var cell in range.Cells())
             {
-                if (TimeSpan.TryParseExact(cell.GetValue<string>(), @"hh\:mm\:ss\.ff", null, out var time) && time.TotalMilliseconds > milisseconds)
+                if (TimeSpan.TryParseExact(cell.GetValue<string>(), @"hh\:mm\:ss\.fff", null, out var time) && time > expectedTimeSpan)
                 {
                     cell.Style.Fill.BackgroundColor = XLColor.DarkRed;
                     cell.Style.Font.FontColor = XLColor.White;
