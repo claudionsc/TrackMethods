@@ -15,6 +15,7 @@ namespace TrackMethods.Services
         {
             
         }
+
         public void GenerateExcel(Stopwatch sw, string methodCalled, string description, string user, string saveFilePath, string fileName, Int32 milisseconds)
         {
             var fileExists = File.Exists(saveFilePath);

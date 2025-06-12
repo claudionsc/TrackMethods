@@ -5,13 +5,37 @@ using System.Diagnostics;
 using System.IO;
 using System.Web.Mvc;
 using TrackMethods.Interfaces;
+using TrackMethods.Services;
+
+
+delegate void GenerateExcelHandler(
+    Stopwatch sw,
+    string methodCalled,
+    string description,
+    string user,
+    string saveFilePath,
+    string fileName,
+    Int32 milisseconds
+);
+
+delegate JsonResult GenerateJsonHandler(
+    Stopwatch sw, 
+    string methodCalled, 
+    string description, 
+    string user, 
+    string fileName, 
+    Int32 milisseconds);
 
 namespace TrackMethods.Services
 {
     public class TrackMethod : ITrackMethod
     {
+
         private readonly ExcelGenerator _excelGenerator = new();
         private readonly JsonGenerator _jsonGenerator = new();
+
+        event GenerateExcelHandler GenerateExcelEvent;
+        event GenerateJsonHandler GenerateJsonEvent;
 
         public string LastGeneratedJson { get; private set; } = string.Empty;
         public T TrackExecution<T>(
@@ -41,27 +65,40 @@ namespace TrackMethods.Services
                     if (filePath == null)
                         throw new Exception("Caminho obrigatório para Excel");
 
-                    _excelGenerator.GenerateExcel(stopwatch, methodCalled, description, user, filePath, fileName, milisseconds);
+                    GenerateExcelEvent += _excelGenerator.GenerateExcel;
+
+                    GenerateExcelEvent?.Invoke(stopwatch, methodCalled, description, user, filePath, fileName, milisseconds);
+
                 }
                 else if (saveType == "json")
                 {
                     if (filePath != null)
                         throw new Exception("JSON não deve usar filePath");
 
-                    var logData = _jsonGenerator.GenerateJson(stopwatch, methodCalled, description, user, fileName, milisseconds);
-                    LastGeneratedJson = JsonConvert.SerializeObject(logData, Formatting.Indented);
+                    
+                    GenerateJsonEvent += _jsonGenerator.GenerateJson;
+
+                    if (GenerateJsonEvent != null)
+                    {
+                        foreach (var handler in GenerateJsonEvent.GetInvocationList())
+                        {
+                            var logData = (JsonResult)handler.DynamicInvoke(stopwatch, methodCalled, description, user, fileName, milisseconds);
+                            LastGeneratedJson = JsonConvert.SerializeObject(logData.Data, Formatting.Indented); // .Data é o conteúdo do JsonResult
+                        }
+                    }
                 }
                 else
                 {
                     throw new Exception("Formato inválido. Use json ou xlsx.");
                 }
 
-                return result;
             }
             finally
             {
                 stopwatch.Stop();
             }
+                
+            return result;
 
         }
     }
